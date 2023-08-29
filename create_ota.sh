@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Script to prepare an update.zip containing F-Droid and the Privileged Extension.
+# Script to prepare an update.zip containing G-Droid and the Privileged Extension.
 
 set -e
 
@@ -36,15 +36,15 @@ GPG="gpg --keyring $PROG_DIR/f-droid.org-signing-key.gpg --no-default-keyring --
 VERSION=$(grep versionCode=\"\[[:digit:]]\*\" app/src/main/AndroidManifest.xml | cut -d \" -f 2)
 GITVERSION=$(git describe --tags --always)
 
-FDROID_APK=F-Droid.apk
-PRIVEXT_APK=org.fdroid.fdroid.privileged_${VERSION}.apk
-FPE_NAME=F-DroidPrivilegedExtension
+FDROID_APK=G-Droid.apk
+PRIVEXT_APK=org.gdroid.gdroid.privileged_${VERSION}.apk
+FPE_NAME=G-DroidPrivilegedExtension
 
 # Collect files
 mkdir -p $TMP_DIR/META-INF/com/google/android/
 cp app/src/main/scripts/update-binary $TMP_DIR/META-INF/com/google/android/
 cp app/src/main/scripts/80-fdroid.sh $TMP_DIR/
-cp app/src/main/permissions_org.fdroid.fdroid.privileged.xml $TMP_DIR/
+cp app/src/main/permissions_org.gdroid.gdroid.privileged.xml $TMP_DIR/
 
 if [ -z $BINARIES ] ; then
     cd $PROG_DIR
@@ -71,7 +71,7 @@ curl -L https://f-droid.org/$FDROID_APK > $TMP_DIR/$FDROID_APK
 curl -L https://f-droid.org/${FDROID_APK}.asc > $TMP_DIR/${FDROID_APK}.asc
 $GPG --verify $TMP_DIR/${FDROID_APK}.asc
 rm $TMP_DIR/${FDROID_APK}.asc
-test -e $TMP_DIR/F-Droid.apk || mv $TMP_DIR/$FDROID_APK $TMP_DIR/F-Droid.apk
+test -e $TMP_DIR/G-Droid.apk || mv $TMP_DIR/$FDROID_APK $TMP_DIR/G-Droid.apk
 
 # Make zip
 if [ -z $BINARIES ]; then
