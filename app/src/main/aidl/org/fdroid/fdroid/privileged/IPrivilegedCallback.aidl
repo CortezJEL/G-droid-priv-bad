@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fdroid.fdroid.privileged;
+package org.gdroid.gdroid.privileged;
 
 interface IPrivilegedCallback {
 
